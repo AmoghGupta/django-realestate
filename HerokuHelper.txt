@@ -1,0 +1,54 @@
+Took help from:
+https://www.youtube.com/watch?v=6DI_7Zja8Zc
+
+https://simpleisbetterthancomplex.com/tutorial/2016/08/09/how-to-deploy-django-applications-on-heroku.html
+
+How to deplpy using heroku?
+1. Install heroku CLI.
+https://devcenter.heroku.com/articles/heroku-cli
+2. heroku login (on terminal)
+3. pip install gunicorn
+4. generate latest requirements.txt
+5. push all changes to your git
+//stay on your project directory 
+6. heroku create myrealestateamogh (create a heroku app)
+7. heroku open will open up the app
+8. git push heroku master
+9. heroku open
+10. heroku logs --tail (to get all the logs)
+11. we need to create a proc file for heroku: 
+Procfile: where realestate is the app name 
+    web: gunicorn realestate.wsgi 
+12. push the proc file with the required settings.
+13. git push heroku master
+14. heroku open 
+15. add the heroku to allowed domain in settings.py file.
+
+16. create a secret token for prod 
+import secrets
+secrets.token_hex(2)
+Now we set heroku env variables:
+17. heroku config:set SECRET_KEY="5a896284daa2992531b5c2e9fa978fae6848630c491f9bc6"
+18. now update settings.py file to use this env variable
+19. git push heroku master
+20. heroku addons (lists downs additons things we added)
+21. heroku provides a free database already called hobby-dev
+22. heroku pg (provides the config of the free database)
+23. pip3 install psycopg2==2.7.5 and then pip install django-heroku 
+(this package will automatically take care of our
+database connections and also the static files using whitenoise internally)
+24. update setting.py file with:
+django_heroku.settings(locals())
+
+25. push the updated requirements file and settings file
+26. git push heroku master
+
+NOW SETTING UP DATABASE:
+27. heroku run python3 manage.py migrate (to create the tables on db)
+28. create a super admin user
+29. heroku run bash (will open linux bash at the root directory)
+    a. ls 
+    b. python3 manage.py createsuperuser
+    (amogh and amoghgupta15)
+    c. exit
+30. heroku open

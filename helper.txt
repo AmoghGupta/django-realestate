@@ -1,3 +1,7 @@
+django-admin.py version
+3.0.8
+
+
 commands:
 1. pip3 freeze (lists out all the packages stored in your system)
 2. To create a virtua env ==> python3 -m venv ./venv (in the directory where u want to create virtual env)

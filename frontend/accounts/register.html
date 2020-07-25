@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %} 
+<h2>Register Form</h2>
+{% include 'partials/_alerts.html' %}
+<form action="{% url 'register' %}" method="POST" autocomplete="off">
+    {% csrf_token%}
+  <div class="container">
+    <label for="fname"><b>FirstName</b></label>
+    <input type="text" placeholder="Enter FirstName" name="fname" required>
+    <br>
+    <label for="lname"><b>LastName</b></label>
+    <input type="text" placeholder="Enter LastName" name="lname" required>
+    <br>
+    <label for="email"><b>Email</b></label>
+    <input type="text" placeholder="Enter Email" name="email" required autocomplete="off">
+    <br>
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" required autocomplete="off">
+    <br>
+    <button type="submit">Login</button>
+  </div>
+</form>
+
+{% endblock%}

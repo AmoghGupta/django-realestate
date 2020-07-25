@@ -1,0 +1,147 @@
+commands:
+1. pip3 freeze (lists out all the packages stored in your system)
+2. To create a virtua env ==> python3 -m venv ./venv (in the directory where u want to create virtual env)
+3. to activate the venv created => source ./venv/bin/activate
+4. to deactivate==> deactivate 
+
+setting up the linting in VSC:
+command+shift+p  (select the interpreter venv so that it starts finding packages in your local virtual env)
+
+INSTALLING AND SETTING UP A DJANGO PROJECT:
+1. pip install DJANGO (installs django)
+2. django-admin help  (lists the helper commands)
+
+CREATE A "realestate" DJANGO project:
+3. django-admin startproject projectname (to create a django project)
+example: django-admin startproject realestate .  (. refers to current directory)
+
+Inside the main Project App:
+4. python manage.py help (lists the commands used by admin)
+5. python manage.py runserver (to run the server)
+6. settings.py (this file has mainly key value pairs) (settings of our django project)
+7. urls.py  (this is kind of a routing file (consists of all the urls related to app)
+8. wsgi.py (web server gateway interface) (specification that how a webserver communicates with a web application
+and how web applications can be chained to process one request)
+
+SubApps:
+Creating a "pages" subapp 
+/***To perform various tasks we create subapps in our project***/
+9. Creating a new subapp inside the project=> python manage.py startapp pages
+10. Once an app is created we go an register that app in the main project settings.py INSTALLED_APPS list.
+11. Now create a urls.py file for your app and link it to your views in the subapp.
+12. views.py is the file where we define our views
+13. models.py is the file where we define our models.
+14. tests.py for any testcases
+15. Migrations: Migrations are Django's way of propagating changes you make to your models 
+(adding a field, deleting a model, etc.) into your database schema. 
+16. admins.py is the file where you register your models created.
+17. Now register the urls of the "pages" subapp in the urls.py of the main "realestate" Project.
+18. Create any folder for example: frontend where in the UI templates used in the project will be placed.
+19. Register the template folder i.e frontend in this case in the settings.py 
+of the Project i.e realestate inside TEMPLATES list dictionary in "DIRS" key
+20. registered "frontend" template folder will have the templates in it and these templates will be reffered 
+directly from views.
+20. now in the "pages" subapp inside views.py return the html render files (which will be picked from frontend)
+21. we created a base.html in frontend which will be the layout of our app. (DJANGO uses JINJA for templating)
+
+Serving Static files:
+22. Now create a folder called "static" inside the main project "realestate" and put the static stuff here.
+23. Now go to settings.py and define the STATIC_ROOT and the STATICFILES_DIRS.
+24. Run this command=>> DJANGO agupta$ python manage.py collectstatic
+the above command collects all static content from all the apps/subapps and puts in the static folder
+in the root.
+then the static resources can be accessed directly: http://localhost:8000/static/images/django.png
+
+25. created subapps realtors and listings
+26. followed the same steps as followed for pages.
+
+Setting up Database:
+27. Installed postgres (this will setup DB on your system)
+28. Installed pgadmin (this will connect you to the above DB and provide UI to manage it)
+29. Create a DB (for example realestate in our case) for your project from postgres directly or from pgadmin using UI. Give enough permissions to it.
+29. Now install packages to connect postgres to django==> 
+pip install psycopg2 
+pip install psycopg2-binary
+
+30. now go to settings.py of the PROJECT and in the DATABASES add the postgres database 
+configuration for the database which you created.
+
+Migrations:
+31. Run the exisitig migrations==> python manage.py migrate
+this will migrate all the exisitng migrations to the database.
+32. Now if you go to your database "realestate" and goto schemas => tables .. you can see all the migrated
+tables.
+
+
+CREATING MODELS:
+https://docs.djangoproject.com/en/3.0/ref/models/fields/
+
+33. Creating LISTING MODEL, go to models.py in listings.
+34. we create a model using class by extending the models.Model class and adding fields.
+
+35. Creating REALTOR MODEL, go to models.py in listings.
+36. we create a model using class by extending the models.Model class and adding fields.
+
+37. Now make migrations=> python3 manage.py makemigrations
+39. Now migrate=> python3 manage.py migrate
+40. This will migrate all the models to DB.
+
+CREATING A SUPER USER:
+41. python3 manage.py createsuperuser 
+username: Amogh
+password: admin
+
+REGISTER THE MODELS FOR ADMIN AREA:
+42. once models are created they need to be registered in the corresponing admin.py
+43. check admin.py.. once regsitered the model will start appearning in Admin area of 
+portal.(http://localhost:8000/admin/)
+44. do the same for realtors
+
+ADDING SUPPORT FOR MEDIA files
+45. go to settings.py in root application (realestate) folder and define MEDIA_ROOT and MEDIA_URL
+46. Go to urls.py of root (realestate) folder and support for MEDIA_ROOT and MEDIA_URL
+47. Now if you add and data to models from admin area, the files will be uploaded to the 
+MEDIA folder created at the root.
+
+
+Customizing Admin AREA:
+Customizing Admin DISPLAY AND LOGO:
+48. Fill in the data from admin area for the models created.
+49. we can brand admin website by creating a template that extends 'admin/base.html' and 
+then updating the blocks.
+
+Customizing Admin DISPLAY DATA:
+50. Go to listings admin.py and create a class ListingAdmin that extends admin.ModelAdmin
+then in a list_display tuple add the fields you want to display instead of viewing all fields
+of a record. If you want view all fields of a record click on the id of that record.
+
+51. If you want to make any field clickable to view the whole data of that record then
+in the Admin.py under ListingAdmin class add a property list_display_links and add the
+fields you want to be clickable.
+52. you can add a filer by adding list_filter property.
+53. add property list_editable to make the fields editable.
+54. to add a search add search_fields property.
+55. to support pagination list_per_page property.
+56. do the same for realots.
+
+Reading data from models:
+57. In listings app in views.py import the model which you want to use.
+then you can get the model data for example: Listing.objects.all(),
+pass this data as a dictionary to the template. 
+for example:
+return render(request, 'listings/listings.html',mydata)
+remember data is always passed as a dictionary to the templates.
+
+AUTHENTICATION:
+58.we create an accounts app=>> python3 manage.py startapp accounts
+59. create urls, create views
+60. all logic is inside views
+61. django provides User model for all this stuff
+62. 
+
+
+
+
+
+
+

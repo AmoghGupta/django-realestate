@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Listings</h1>
+
+
+{% if listings %}
+    {% for item in listings %}
+        {{item.title}} &nbsp;&nbsp;&nbsp; {{item.price}}
+        <br>
+    {% endfor %}
+{% else %}
+    <p>No data</p>
+{% endif %}
+
+
+
+
+{% endblock%}

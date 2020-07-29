@@ -7,5 +7,4 @@ from . import views
 urlpatterns = [
     #empty string meaning home page i.e landing url
     path('', views.index, name="index"),
-    path('about', views.about, name="about"),
 ]

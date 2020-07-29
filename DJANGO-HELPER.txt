@@ -142,10 +142,3 @@ AUTHENTICATION:
 60. all logic is inside views
 61. django provides User model for all this stuff
 62. 
-
-
-
-
-
-
-

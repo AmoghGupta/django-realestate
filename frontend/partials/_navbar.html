@@ -7,19 +7,19 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">Real Estate</a>
+                <a class="navbar-brand" href="{% url 'index' %}">Real Estate</a>
               </div>
               
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
               <li>
-                  <a href="/about">About</a>
+                  <a href="{% url 'dashboard' %}">Dashboard</a>
               </li>
               <li>
-                  <a href="/accounts/dashboard">Dashboard</a>
-              </li>
+                <a href="{% url 'search' %}">Search</a>
+            </li>
               <li>
-                  <a href="/listings">Listings</a>
+                  <a href="{% url 'listings' %}">Listings</a>
               </li>
             </ul>
             
@@ -28,7 +28,7 @@
                     <a href="#">{{user.email}}</a>
                 </li>
                 <li>
-                    <a href="/accounts/logout">Logout</a>
+                    <a href="{% url 'logout' %}">Logout</a>
                 </li>
             </ul>
           </div>

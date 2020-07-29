@@ -1,0 +1,51 @@
+NGINX Setup:
+1. brew install nginx
+2. Path where nginx conf file is stored:
+nano /usr/local/etc/nginx/nginx.conf
+3. sudo nginx 
+4. sudo nginx -s stop
+5. edit the nginx.conf file and add:
+user agupta staff
+to avoid any 503 issues.
+6. create a directory "sites-enabled" (command=> mkdir sites-enabled) at the same location 
+where nginx.conf is stored.
+7. edit the nginx.conf and find http { and inside it add the folder path where you will store 
+settings  of your sites like this:
+include /usr/local/etc/nginx/sites-enabled/*;
+8. now navigate to your server project directoty and create a nginx.conf file for your project:
+touch nginx.conf
+9. add your server settings in the nginx.conf file like this:
+server {
+    listen 80;
+    server_name localhost;
+
+    access_log /Users/agupta/Desktop/DJANGO_REALESTATE/django-realestate/logs/access.log;     # <- make sure to create the logs directory 
+    error_log /Users/agupta/Desktop/DJANGO_REALESTATE/django-realestate/logs/error.log;       # <- you will need this file for debugging
+
+    location / {
+        proxy_pass http://127.0.0.1:9000;         # <- let nginx pass traffic to the gunicorn server
+    }
+    
+    location /static {
+        root /Users/agupta/Desktop/DJANGO_REALESTATE/django-realestate/;  # <- let nginx serves the static contents
+    }
+}
+
+10. now navigate to directory where we created sites-enabled
+cd /usr/local/etc/nginx/sites-enabled
+
+Now instead of copy our project's nginx.conf into the 'sites-enabled' folder, we can simply 
+create a soft link instead:
+
+ln -s /full_path/to/your/django_project project_name
+example: ln -s /Users/agupta/Desktop/DJANGO_REALESTATE/django-realestate/nginx.conf realestate
+
+
+
+---------------------------------------------------------------------------------------------------------------------
+
+for Bad Request 400:
+make sure you allow :
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+]

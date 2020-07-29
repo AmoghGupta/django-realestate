@@ -52,3 +52,12 @@ NOW SETTING UP DATABASE:
     (amogh and amoghgupta15)
     c. exit
 30. heroku open
+
+
+
+
+Proc filesystem (procfs) is a special filesystem in Unix-like operating systems 
+that presents information about processes and other system information in a 
+hierarchical file-like structure.
+
+Cloud systems are nothing but linux machines running on servers.

@@ -1,0 +1,82 @@
+setting up nginx, gunicorn and django:
+http://cheng.logdown.com/posts/2015/01/29/deploy-django-nginx-gunicorn-on-mac-osx-part-2
+
+nginx on mac:
+https://www.sylvaindurand.org/setting-up-a-nginx-web-server-on-macos/
+
+------------------------------------------------------------------------------------------------
+ 
+NGINX== IS A HTTP WEBSERVER 
+NGINX is open source software for web serving, reverse proxying, caching, load balancing, media streaming, 
+and more.
+A web server accepts and fulfills requests from clients for static content 
+(i.e., HTML pages, files, images, and videos) from a website. 
+Web servers handle HTTP requests and responses only.
+
+GUNICORN=== Python Web Server Gateway Interface HTTP server. 
+It is a pre-fork worker model.
+WSGI Server
+
+DJANGO=== is a application server
+An application server exposes business logic to the clients, which generates 
+dynamic content.
+
+------------------------------------------------------------------------------------------------
+
+DATABASE SERVERS(POSTGRES, MONGO ETC)
+                /\
+                \/
+                \/
+                \/
+                \/
+DJANGO---serves single request at a time(PYTHON server (DJANGO))
+                /\
+                \/
+                \/
+                \/
+                \/
+GUNICORN---we use gunicorn which is a pre fork worker model. 
+(it runs multiples processes to serve requests)
+                /\
+                \/
+                \/
+                \/
+                \/
+NGINX--- which acts as a single entry point.
+(this is what is shared to the consuming applications/client)
+(all requests move to and fro from here. Its a reverse proxy system)
+(acts as an api gateway, i.e all the microservices can be filtered here)
+(acts as a Load balancer and decides where to route the request)
+                /\
+                \/
+                \/
+                \/
+                \/
+CLIENT APPS (BROWSERS, MICROSERVICES, APIs ETC)
+
+------------------------------------------------------------------------------------------------
+
+WSGI stands for “Web Server Gateway Interface”.
+It is used to forward requests from a web server (such as Apache or NGINX) to a 
+backend Python web application or framework. From there, responses are then passed back to the webserver to reply to the requestor.
+Requests are sent from the client's browser to the server.
+
+------------------------------------------------------------------------------------------------
+
+
+Commands:
+running server from gunicorn:
+gunicorn --bind 0.0.0.0:8000 realestate.wsgi
+
+
+///error fix
+export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
+
+
+
+1. running gunicorn app with conf file:
+gunicorn -c gunicorn.conf.py realestate.wsgi
+2. Run Nginx:
+sudo nginx
+3. Stop nginx:
+sudo nginx -s stop

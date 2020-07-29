@@ -21,7 +21,6 @@ def login(request):
         user = auth.authenticate(username=email, password=password)
         if user is not None:
             auth.login(request,user)
-            messages.success(request,'Your are now logged in')
             return redirect('listings')
         else:
             messages.error(request,'Invalid username and password')
@@ -81,6 +80,7 @@ def register(request):
 #         return HttpResponse(data, content_type='application/json')
 
 def logout(request):
+    messages.success(request,'Your are now logged out')
     auth.logout(request)
     return redirect('login')
 

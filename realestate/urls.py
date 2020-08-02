@@ -28,8 +28,8 @@ handler404 = 'realestate.views.handler404'
 urlpatterns = [
     #empty string meaning home page i.e landing url
     #registering the subapp pages url here
-    path('realestate', include('pages.urls')),
-    path('realestate/listings/', include('listings.urls')),
-    path('realestate/accounts/', include('accounts.urls')),
-    path('realestate/admin/', admin.site.urls),
+    path('', include('pages.urls')),
+    path('listings/', include('listings.urls')),
+    path('accounts/', include('accounts.urls')),
+    path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

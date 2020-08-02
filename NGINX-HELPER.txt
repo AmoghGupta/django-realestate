@@ -40,12 +40,10 @@ create a soft link instead:
 ln -s /full_path/to/your/django_project project_name
 example: ln -s /Users/agupta/Desktop/DJANGO_REALESTATE/django-realestate/nginx.conf realestate
 
-
-
 ---------------------------------------------------------------------------------------------------------------------
 
 for Bad Request 400:
 make sure you allow :
 ALLOWED_HOSTS = [
     '127.0.0.1',
-]
+]¯s̄
